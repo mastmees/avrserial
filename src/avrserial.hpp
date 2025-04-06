@@ -47,6 +47,7 @@ public:
       switch (txstate) {
         default:
           txstate=0;
+          // fall through
         case 0:
           if (txfifo.count()) {
             obyte=txfifo.pop();
@@ -55,6 +56,7 @@ public:
           else {
             break;
           }
+          // fall through
         case 1:
           writebit(0); // start bit
           txstate++;
