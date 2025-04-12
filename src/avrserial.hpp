@@ -2,9 +2,11 @@
 
 #include <stdint.h>
 #include <stdarg.h>
+#include <avr/interrupt.h>
 #include "fifo.hpp"
+#include "textoutput.hpp"
 
-class SoftwareUART
+class SoftwareUART : public TextOutput
 {
 protected:
   volatile uint8_t rxstate,nbits,ibyte,sticks,txstate,obyte,txtick;
@@ -28,7 +30,14 @@ public:
     sei();
     return b;
   }
-  
+
+  void put_char(uint8_t c)
+  {
+    while (txfull())
+      ;
+    send(c);
+  }
+    
   uint8_t receive()
   {
     uint8_t b;
@@ -132,7 +141,7 @@ public:
   
 };
 
-class UART
+class UART : public TextOutput
 {
 protected:
   FIFO<uint8_t,32> rxfifo;
@@ -150,6 +159,13 @@ public:
     return b;
   }
 
+  void put_char(uint8_t c)
+  {
+    while (txfull())
+      ;
+    send(c);
+  }
+  
   uint8_t receive()
   {
     uint8_t b;
