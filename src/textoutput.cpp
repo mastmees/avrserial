@@ -19,7 +19,7 @@ void TextOutput::puts_P(const char *s)
   }
 }
 
-void TextOutput::putn(int16_t n)
+void TextOutput::putn(int32_t n)
 {
   if (n<0) {
     put_char('-');
@@ -33,7 +33,7 @@ void TextOutput::putn(int16_t n)
 void TextOutput::putx(uint8_t n)
 {
   n=(n&15)+'0';
-  put_char(n>'9'?n+7:n);
+  put_char((n>'9')?n+7:n);
 }
 
 void TextOutput::putxw(uint16_t n)
@@ -55,10 +55,16 @@ void TextOutput::printf(const char *fmt,...)
       c=*fmt++;
       switch (c) {
         case 'd':
+          putn(va_arg(args,int16_t));
+          break;
+        case 'u':
           putn(va_arg(args,uint16_t));
           break;
+        case 'l':
+          putn(va_arg(args,uint32_t));
+          break;
         case 's':
-          puts(va_arg(args,const char*));
+          puts(va_arg(args,char*));
           break;
         case 'c':
           put_char(va_arg(args,uint16_t));

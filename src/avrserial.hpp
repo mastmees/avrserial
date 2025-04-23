@@ -10,8 +10,8 @@ class SoftwareUART : public TextOutput
 {
 protected:
   volatile uint8_t rxstate,nbits,ibyte,sticks,txstate,obyte,txtick;
-  FIFO<uint8_t,32> rxfifo;
-  FIFO<uint8_t,16> txfifo;
+  FIFO<uint8_t,64> rxfifo;
+  FIFO<uint8_t,64> txfifo;
   
 public:
   SoftwareUART(void) : rxstate(0),txstate(0),txtick(0) { }
@@ -144,8 +144,8 @@ public:
 class UART : public TextOutput
 {
 protected:
-  FIFO<uint8_t,32> rxfifo;
-  FIFO<uint8_t,16> txfifo;
+  FIFO<uint8_t,64> rxfifo;
+  FIFO<uint8_t,64> txfifo;
 public:
   uint8_t rxcount() { return rxfifo.count(); }
   uint8_t txcount() { return txfifo.count(); }

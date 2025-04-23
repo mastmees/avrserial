@@ -47,6 +47,11 @@ void setup()
   UCSR0B=(1<<RXCIE0)|(1<<RXEN0)|(1<<TXEN0); // enable rx,tx, enable rx int
 
   sei();
+
+  uart.printf("Int16 %d\r\nHex16 %x\r\nString %s\r\n"
+    "Char %c\r\nUint16 %u\r\nHex16 %x\r\nLong %l\r\nHex16 %x\r\n",
+    -32000,0x55aa,"Hello",'!',(uint16_t)65432,0xaa55,(int32_t)-1234567L,0x5a5a);
+
 }
 
 // with hardware UART running at 9600 bps and sofware UART running at 1200

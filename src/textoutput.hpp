@@ -8,7 +8,7 @@ struct TextOutput
 
   void puts(const char *s);
   void puts_P(const char *s);
-  void putn(int16_t n);
+  void putn(int32_t n);
   void putx(uint8_t n);
   void putxw(uint16_t n);
   void printf(const char *fmt,...);
